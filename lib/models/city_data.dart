@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class CityData extends StatelessWidget {
   const CityData({required this.cityName, super.key});
@@ -14,7 +13,12 @@ class CityData extends StatelessWidget {
           color: Color.fromARGB(255, 138, 67, 91),
         ),
         width: 340,
-        child: Center(child: Text('Nazwa miejscowości: $cityName')),
+        child: Center(
+            child: Text(
+          'Nazwa miejscowości: $cityName',
+          style: const TextStyle(
+              color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+        )),
       ),
     );
   }

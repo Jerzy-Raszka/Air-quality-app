@@ -12,7 +12,7 @@ class ChoosenCity extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 30.0),
+          padding: const EdgeInsets.only(left: 40.0),
           child: Text(
             cityName,
             style: const TextStyle(
@@ -23,7 +23,7 @@ class ChoosenCity extends StatelessWidget {
           width: 30,
         ),
         Padding(
-          padding: const EdgeInsets.only(right: 70.0),
+          padding: const EdgeInsets.only(right: 40.0),
           child: Container(
             width: 50,
             height: 18,

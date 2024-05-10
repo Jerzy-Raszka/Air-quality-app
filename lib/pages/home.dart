@@ -31,6 +31,9 @@ class HomePage extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.all(8),
                 children: const <Widget>[
+                  SizedBox(
+                    width: 10,
+                  ),
                   CityData(
                     cityName: 'malaga',
                   ),
@@ -44,6 +47,22 @@ class HomePage extends StatelessWidget {
                 ],
               ),
             ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color.fromARGB(255, 138, 67, 91),
+              ),
+              child: const Text(
+                'Zmień lokalizacje',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
+              ),
+              onPressed: () {},
+            ),
+            const SizedBox(
+              height: 10,
+            )
           ],
         ));
   }
