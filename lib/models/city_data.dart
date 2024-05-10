@@ -10,7 +10,7 @@ class CityData extends StatelessWidget {
       child: Container(
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20)),
-          color: Color.fromARGB(255, 138, 67, 91),
+          color: Color.fromARGB(255, 62, 180, 137),
         ),
         width: 340,
         child: Center(

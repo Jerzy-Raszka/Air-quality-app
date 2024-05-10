@@ -23,7 +23,7 @@ class ChoosenCity extends StatelessWidget {
           width: 30,
         ),
         Padding(
-          padding: const EdgeInsets.only(right: 40.0),
+          padding: const EdgeInsets.only(right: 45.0),
           child: Container(
             width: 50,
             height: 18,
