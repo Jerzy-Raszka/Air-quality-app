@@ -7,7 +7,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 219, 255, 248),
+        backgroundColor: const Color.fromARGB(255, 225, 240, 218),
         appBar: appBar(),
         body: Column(
           children: <Widget>[
@@ -50,7 +50,7 @@ class HomePage extends StatelessWidget {
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color.fromARGB(255, 62, 180, 137),
+                backgroundColor: const Color.fromARGB(255, 191, 216, 175),
               ),
               child: const Text(
                 'Zmień lokalizacje',
@@ -75,7 +75,7 @@ class HomePage extends StatelessWidget {
         style: TextStyle(
             color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
       ),
-      backgroundColor: const Color.fromARGB(255, 219, 255, 248),
+      backgroundColor: const Color.fromARGB(255, 225, 240, 218),
       elevation: 0.0,
       centerTitle: true,
     );
