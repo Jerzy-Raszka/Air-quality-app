@@ -16,7 +16,7 @@ class MainData extends StatefulWidget {
 }
 
 class _MainDataState extends State<MainData> {
-  late List<CityID> futureCityID;
+  List<CityID> futureCityID = [];
   List<String> selectedCities = [];
 
   @override
@@ -31,11 +31,13 @@ class _MainDataState extends State<MainData> {
         .get(Uri.parse('https://api.gios.gov.pl/pjp-api/rest/station/findAll'));
     if (response.statusCode == 200) {
       final decodedJson = jsonDecode(response.body);
-      futureCityID =
-          decodedJson.map<CityID>((item) => CityID.fromJson(item)).toList();
-      futureCityID.sort((a, b) => a.stationName.compareTo(b.stationName));
+      setState(() {
+        futureCityID =
+            decodedJson.map<CityID>((item) => CityID.fromJson(item)).toList();
+        futureCityID.sort((a, b) => a.stationName.compareTo(b.stationName));
+      });
     } else {
-      throw Exception('Failed to load album');
+      throw Exception('Failed to fetch data');
     }
   }
 
@@ -49,22 +51,13 @@ class _MainDataState extends State<MainData> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        const ChoosenCity(
-          boxColor: Colors.red,
-          cityName: 'malaga',
+        //TODO get from current location (can be stored in selectedCities)
+        ChoosenCity(
+          cityId: '52',
+          futureCityID: futureCityID,
         ),
-        const ChoosenCity(
-          boxColor: Colors.green,
-          cityName: 'tikitaki',
-        ),
-        const ChoosenCity(
-          boxColor: Colors.blue,
-          cityName: 'i',
-        ),
-        const ChoosenCity(
-          boxColor: Colors.yellow,
-          cityName: 'kasztanki',
-        ),
+        ...selectedCities.map((cityId) =>
+            ChoosenCity(cityId: cityId, futureCityID: futureCityID)),
         Expanded(
           child: ListView(
             scrollDirection: Axis.horizontal,
@@ -73,14 +66,10 @@ class _MainDataState extends State<MainData> {
               const SizedBox(
                 width: 10,
               ),
-              const CityData(
-                cityName: 'malaga',
-              ),
+              CityData(cityId: '52', futureCityID: futureCityID),
               ...selectedCities.map((cityId) => CityData(
-                    cityName: futureCityID
-                        .firstWhere(
-                            (element) => element.id.toString() == cityId)
-                        .stationName,
+                    cityId: cityId,
+                    futureCityID: futureCityID,
                   )),
             ],
           ),
