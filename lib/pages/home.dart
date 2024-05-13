@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jakosc_powietrza/models/main_data.dart';
+import 'package:jakosc_powietrza/components/main_data.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

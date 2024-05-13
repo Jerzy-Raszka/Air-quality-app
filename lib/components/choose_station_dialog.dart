@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:jakosc_powietrza/data_models/city_id.dart';
-import 'package:jakosc_powietrza/models/country_dropdown_menu.dart';
+import 'package:jakosc_powietrza/models/city_id.dart';
+import 'package:jakosc_powietrza/components/city_dropdown_menu.dart';
 
 class ChooseStationDialog extends StatefulWidget {
   const ChooseStationDialog(

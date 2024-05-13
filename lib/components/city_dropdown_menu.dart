@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jakosc_powietrza/data_models/city_id.dart';
+import 'package:jakosc_powietrza/models/city_id.dart';
 
 class CityDropdownMenu extends StatefulWidget {
   const CityDropdownMenu(

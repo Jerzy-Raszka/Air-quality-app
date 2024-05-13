@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:jakosc_powietrza/data_models/city_id.dart';
+import 'package:jakosc_powietrza/models/city_id.dart';
 import 'package:http/http.dart' as http;
-import 'package:jakosc_powietrza/data_models/sensor.dart';
+import 'package:jakosc_powietrza/models/sensor.dart';
 
 class CityData extends StatefulWidget {
   const CityData({required this.cityId, required this.futureCityID, super.key});
