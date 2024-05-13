@@ -1,18 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:jakosc_powietrza/data_models/city_id.dart';
+import 'package:jakosc_powietrza/models/choose_station_dialog.dart';
 import 'package:jakosc_powietrza/models/choosen_city.dart';
 import 'package:jakosc_powietrza/models/city_data.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
-Future<CityID> fetchCityID() async {
-  final response = await http
-      .get(Uri.parse('https://api.gios.gov.pl/pjp-api/rest/station/findAll'));
-  if (response.statusCode == 200) {
-    return CityID.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
-  } else {
-    throw Exception('Failed to load album');
-  }
-}
 
 class MainData extends StatefulWidget {
   const MainData({
@@ -24,52 +16,61 @@ class MainData extends StatefulWidget {
 }
 
 class _MainDataState extends State<MainData> {
-  late Future<CityID> futureCityID;
+  List<CityID> futureCityID = [];
+  List<String> selectedCities = [];
 
   @override
   void initState() {
     super.initState();
-    futureCityID = fetchCityID();
+    _fetchData();
+    //TODO Load selectedCities from memory if wanted
+  }
+
+  void _fetchData() async {
+    final response = await http
+        .get(Uri.parse('https://api.gios.gov.pl/pjp-api/rest/station/findAll'));
+    if (response.statusCode == 200) {
+      final decodedJson = jsonDecode(response.body);
+      setState(() {
+        futureCityID =
+            decodedJson.map<CityID>((item) => CityID.fromJson(item)).toList();
+        futureCityID.sort((a, b) => a.stationName.compareTo(b.stationName));
+      });
+    } else {
+      throw Exception('Failed to fetch data');
+    }
+  }
+
+  void _onDialogSaved(List<String> cities) {
+    setState(() {
+      selectedCities = cities;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        const ChoosenCity(
-          boxColor: Colors.red,
-          cityName: 'malaga',
+        //TODO get from current location (can be stored in selectedCities)
+        ChoosenCity(
+          cityId: '52',
+          futureCityID: futureCityID,
         ),
-        const ChoosenCity(
-          boxColor: Colors.green,
-          cityName: 'tikitaki',
-        ),
-        const ChoosenCity(
-          boxColor: Colors.blue,
-          cityName: 'i',
-        ),
-        const ChoosenCity(
-          boxColor: Colors.yellow,
-          cityName: 'kasztanki',
-        ),
+        ...selectedCities.map((cityId) =>
+            ChoosenCity(cityId: cityId, futureCityID: futureCityID)),
         Expanded(
           child: ListView(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.all(8),
-            children: const <Widget>[
-              SizedBox(
+            children: <Widget>[
+              const SizedBox(
                 width: 10,
               ),
-              CityData(
-                cityName: 'malaga',
-              ),
-              CityData(cityName: 'tikitaki'),
-              CityData(
-                cityName: 'i',
-              ),
-              CityData(
-                cityName: 'kasztanki',
-              ),
+              CityData(cityId: '52', futureCityID: futureCityID),
+              ...selectedCities.map((cityId) => CityData(
+                    cityId: cityId,
+                    futureCityID: futureCityID,
+                  )),
             ],
           ),
         ),
@@ -82,43 +83,17 @@ class _MainDataState extends State<MainData> {
             style: TextStyle(
                 color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
           ),
-          onPressed: () {},
+          onPressed: () => showDialog<List<String>>(
+            context: context,
+            builder: (BuildContext context) => Dialog.fullscreen(
+                child: ChooseStationDialog(
+                    futureCityID: futureCityID, onDialogSaved: _onDialogSaved)),
+          ),
         ),
         const SizedBox(
           height: 10,
         )
       ],
     );
-  }
-}
-
-class CityID {
-  final int id;
-  final String stationName;
-  final double gegrLat;
-  final double gegrLon;
-
-  const CityID({
-    required this.id,
-    required this.stationName,
-    required this.gegrLat,
-    required this.gegrLon,
-  });
-
-  factory CityID.fromJson(Map<String, dynamic> json) {
-    return switch (json) {
-      {
-        'id': int id,
-        'stationName': String stationName,
-        'gegrLat': double gegrLat,
-        'gegrLon': double gegrLon,
-      } =>
-        CityID(
-            id: id,
-            stationName: stationName,
-            gegrLat: gegrLat,
-            gegrLon: gegrLon),
-      _ => throw const FormatException('Failed to load city list'),
-    };
   }
 }
