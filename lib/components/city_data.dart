@@ -68,7 +68,6 @@ class _CityDataState extends State<CityData> {
       }
     }
 
-    //to prevent memory leak
     if (mounted) {
       setState(() {
         sensorsData = tempSensorsData;
@@ -90,7 +89,7 @@ class _CityDataState extends State<CityData> {
           children: [
             Center(
                 child: Padding(
-              padding: const EdgeInsets.only(bottom: 10),
+              padding: const EdgeInsets.all(10),
               child: Text(
                 widget.futureCityID
                         .firstWhereOrNull(

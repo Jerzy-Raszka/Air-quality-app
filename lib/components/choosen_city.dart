@@ -57,22 +57,27 @@ class _ChoosenCityState extends State<ChoosenCity> {
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 40.0),
-          child: Text(
-            style: const TextStyle(
-                color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
-            widget.futureCityID
-                    .firstWhereOrNull(
-                        (element) => element.id.toString() == widget.cityId)
-                    ?.stationName ??
-                'Nie znaleziono miejscowości',
+          child: SizedBox(
+            width: 200,
+            child: Text(
+              overflow: TextOverflow.clip,
+              style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold),
+              widget.futureCityID
+                      .firstWhereOrNull(
+                          (element) => element.id.toString() == widget.cityId)
+                      ?.stationName ??
+                  'Nie znaleziono miejscowości',
+            ),
           ),
         ),
         const SizedBox(
           width: 30,
         ),
         Padding(
-          //TODO bug with overextending space on right even though there's still place on right
-          padding: const EdgeInsets.only(right: 45.0),
+          padding: const EdgeInsets.all(35.0),
           child: Container(
             width: 50,
             height: 18,
