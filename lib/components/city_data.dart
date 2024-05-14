@@ -16,7 +16,6 @@ class CityData extends StatefulWidget {
 }
 
 class _CityDataState extends State<CityData> {
-  //TODO charts if wanted
   final String _sensorsApiUrl =
       "https://api.gios.gov.pl/pjp-api/rest/station/sensors/";
   final String _sensorDataApiUrl =
@@ -40,7 +39,6 @@ class _CityDataState extends State<CityData> {
     final response = await http.get(Uri.parse(_sensorsApiUrl + widget.cityId));
     if (response.statusCode == 200) {
       final decodedJson = jsonDecode(response.body);
-      //TODO fix it .tostring parsed to int
       sensorsIds = decodedJson
           .map<int>((item) => int.parse(item["id"].toString()))
           .toList();

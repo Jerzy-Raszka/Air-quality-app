@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:jakosc_powietrza/models/city_id.dart';
 import 'package:jakosc_powietrza/components/choose_station_dialog.dart';
@@ -22,14 +20,13 @@ class MainData extends StatefulWidget {
 class _MainDataState extends State<MainData> {
   List<CityID> futureCityID = [];
   List<String> selectedCities = [];
-  Position? _position;
-  double? _distance;
+  int startCityID = 52;
 
   @override
   void initState() {
     super.initState();
     _fetchData();
-    _getCurrentLocation();
+    _distanceCalculation();
     //TODO Load selectedCities from memory if wanted
   }
 
@@ -48,11 +45,27 @@ class _MainDataState extends State<MainData> {
     }
   }
 
-  void _getCurrentLocation() async {
+  void _distanceCalculation() async {
     Position position = await _determinePosition();
+    double minDistance = 100;
+    int i = 0;
+    for (var d in futureCityID) {
+      double distance = Geolocator.distanceBetween(
+          position.latitude, position.longitude, d.gegrLat, d.gegrLon);
+      if (i == 0) {
+        startCityID = d.id;
+        minDistance = distance;
+      }
+      if (distance < minDistance) {
+        startCityID = d.id;
+        minDistance = distance;
+      }
+      i++;
+    }
+
     if (!mounted) return;
     setState(() {
-      _position = position;
+      startCityID = startCityID;
     });
   }
 
@@ -71,13 +84,6 @@ class _MainDataState extends State<MainData> {
     return await Geolocator.getCurrentPosition();
   }
 
-  _distanceCalculation(Position? position) {
-    for (var d in futureCityID) {
-      var distance = Geolocator.distanceBetween(
-          position!.latitude, position.latitude, d.gegrLat, d.gegrLon);
-    }
-  }
-
   void _onDialogSaved(List<String> cities) {
     setState(() {
       selectedCities = cities;
@@ -88,9 +94,8 @@ class _MainDataState extends State<MainData> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        //TODO get from current location (can be stored in selectedCities)
         ChoosenCity(
-          cityId: '52',
+          cityId: '$startCityID',
           futureCityID: futureCityID,
         ),
         ...selectedCities.map((cityId) =>
@@ -103,7 +108,7 @@ class _MainDataState extends State<MainData> {
               const SizedBox(
                 width: 10,
               ),
-              CityData(cityId: '52', futureCityID: futureCityID),
+              CityData(cityId: '$startCityID', futureCityID: futureCityID),
               ...selectedCities.map((cityId) => CityData(
                     cityId: cityId,
                     futureCityID: futureCityID,
