@@ -6,7 +6,7 @@ import 'package:jakosc_powietrza/components/city_data.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'dart:developer' as developer;
+//import 'dart:developer' as developer;
 
 class MainData extends StatefulWidget {
   const MainData({
