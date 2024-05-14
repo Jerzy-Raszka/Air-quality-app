@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:jakosc_powietrza/models/city_id.dart';
 import 'package:jakosc_powietrza/components/choose_station_dialog.dart';
@@ -6,6 +8,7 @@ import 'package:jakosc_powietrza/components/city_data.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'dart:developer' as developer;
 
 class MainData extends StatefulWidget {
   const MainData({
@@ -19,11 +22,14 @@ class MainData extends StatefulWidget {
 class _MainDataState extends State<MainData> {
   List<CityID> futureCityID = [];
   List<String> selectedCities = [];
+  Position? _position;
+  double? _distance;
 
   @override
   void initState() {
     super.initState();
     _fetchData();
+    _getCurrentLocation();
     //TODO Load selectedCities from memory if wanted
   }
 
@@ -39,6 +45,36 @@ class _MainDataState extends State<MainData> {
       });
     } else {
       throw Exception('Failed to fetch data');
+    }
+  }
+
+  void _getCurrentLocation() async {
+    Position position = await _determinePosition();
+    if (!mounted) return;
+    setState(() {
+      _position = position;
+    });
+  }
+
+  Future<Position> _determinePosition() async {
+    LocationPermission permission;
+
+    permission = await Geolocator.checkPermission();
+
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location Permissions are denied');
+      }
+    }
+
+    return await Geolocator.getCurrentPosition();
+  }
+
+  _distanceCalculation(Position? position) {
+    for (var d in futureCityID) {
+      var distance = Geolocator.distanceBetween(
+          position!.latitude, position.latitude, d.gegrLat, d.gegrLon);
     }
   }
 
