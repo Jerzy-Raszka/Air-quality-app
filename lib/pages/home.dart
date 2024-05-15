@@ -6,7 +6,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 225, 240, 218),
+        backgroundColor: const Color.fromARGB(255, 166, 227, 233),
         appBar: appBar(),
         body: const MainData());
   }
@@ -18,7 +18,7 @@ class HomePage extends StatelessWidget {
         style: TextStyle(
             color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
       ),
-      backgroundColor: const Color.fromARGB(255, 55, 112, 28),
+      backgroundColor: const Color.fromARGB(255, 113, 201, 206),
       elevation: 0.0,
       centerTitle: true,
     );

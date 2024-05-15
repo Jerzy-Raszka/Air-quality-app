@@ -81,7 +81,14 @@ class _ChoosenCityState extends State<ChoosenCity> {
           child: Container(
             width: 50,
             height: 18,
-            color: airIndexMap[airIndex],
+            decoration: BoxDecoration(
+              color: airIndexMap[airIndex],
+              border: Border.all(
+                width: 3,
+                color: const Color.fromARGB(255, 113, 201, 206),
+              ),
+              borderRadius: BorderRadius.circular(12),
+            ),
           ),
         ),
       ],

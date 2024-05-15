@@ -20,6 +20,7 @@ class _ChooseStationDialogState extends State<ChooseStationDialog> {
   void initState() {
     super.initState();
     _getStringValuesSF();
+    _citiesList = ['', '', ''];
   }
 
   void _getStringValuesSF() async {
@@ -44,35 +45,53 @@ class _ChooseStationDialogState extends State<ChooseStationDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ..._citiesList.asMap().entries.map(
-              (entry) => CityDropdownMenu(
-                  futureCityID: widget.futureCityID,
-                  initialId: entry.value,
-                  onCountrySelected: (String cityId) {
-                    _updateCitiesList(cityId, entry.key);
-                  }),
-            ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextButton(
-              onPressed: () {
-                widget.onDialogSaved(_citiesList);
-                Navigator.pop(context);
-              },
-              child: const Text('Save'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('Cancel'),
-            ),
-          ],
-        )
-      ],
+    return Container(
+      color: const Color.fromARGB(255, 166, 227, 233),
+      child: Column(
+        children: [
+          ..._citiesList.asMap().entries.map(
+                (entry) => Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 5.0),
+                  child: CityDropdownMenu(
+                      futureCityID: widget.futureCityID,
+                      initialId: entry.value,
+                      onCountrySelected: (String cityId) {
+                        _updateCitiesList(cityId, entry.key);
+                      }),
+                ),
+              ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextButton(
+                onPressed: () {
+                  widget.onDialogSaved(_citiesList);
+                  Navigator.pop(context);
+                },
+                child: const Text(
+                  'Save',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text(
+                  'Cancel',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
+          )
+        ],
+      ),
     );
   }
 }

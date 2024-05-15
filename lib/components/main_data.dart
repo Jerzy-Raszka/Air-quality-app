@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jakosc_powietrza/components/legend.dart';
 import 'package:jakosc_powietrza/models/city_id.dart';
 import 'package:jakosc_powietrza/components/choose_station_dialog.dart';
 import 'package:jakosc_powietrza/components/choosen_city.dart';
@@ -102,9 +103,34 @@ class _MainDataState extends State<MainData> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
+        const SizedBox(
+          height: 5,
+        ),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 35.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Najbliższa stacja: ',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold),
+              ),
+              LegendButton(),
+            ],
+          ),
+        ),
         ChoosenCity(
           cityId: '$startCityID',
           futureCityID: futureCityID,
+        ),
+        const Divider(
+          color: Color.fromARGB(255, 113, 201, 206),
+          thickness: 3,
+          indent: 15,
+          endIndent: 15,
         ),
         ...selectedCities.map((cityId) =>
             ChoosenCity(cityId: cityId, futureCityID: futureCityID)),
@@ -126,7 +152,7 @@ class _MainDataState extends State<MainData> {
         ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color.fromARGB(255, 191, 216, 175),
+            backgroundColor: const Color.fromARGB(255, 113, 201, 206),
           ),
           child: const Text(
             'Zmień lokalizacje',
