@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jakosc_powietrza/models/city_id.dart';
 import 'package:jakosc_powietrza/components/city_dropdown_menu.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ChooseStationDialog extends StatefulWidget {
   const ChooseStationDialog(
@@ -15,18 +16,30 @@ class ChooseStationDialog extends StatefulWidget {
 class _ChooseStationDialogState extends State<ChooseStationDialog> {
   late List<String> _citiesList;
 
-  void _updateCitiesList(String cityId, int index) {
-    setState(() {
-      _citiesList[index] = cityId;
-    });
-  }
-
   @override
   void initState() {
     super.initState();
-    //TODO these values will come from the passed value loaded from memory in the main_data (if there will be such feature)
-    var firstItem = widget.futureCityID.first.id.toString();
-    _citiesList = [firstItem, firstItem, firstItem];
+    _getStringValuesSF();
+  }
+
+  void _getStringValuesSF() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String firstCity = prefs.getString('0') ?? '114';
+    String secondCity = prefs.getString('1') ?? '114';
+    String thirdCity = prefs.getString('2') ?? '114';
+    List<String> citiesList = [firstCity, secondCity, thirdCity];
+    if (!mounted) return;
+    setState(() {
+      _citiesList = citiesList;
+    });
+  }
+
+  void _updateCitiesList(String cityId, int index) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('$index', cityId);
+    setState(() {
+      _citiesList[index] = cityId;
+    });
   }
 
   @override
@@ -36,6 +49,7 @@ class _ChooseStationDialogState extends State<ChooseStationDialog> {
         ..._citiesList.asMap().entries.map(
               (entry) => CityDropdownMenu(
                   futureCityID: widget.futureCityID,
+                  initialId: entry.value,
                   onCountrySelected: (String cityId) {
                     _updateCitiesList(cityId, entry.key);
                   }),

@@ -6,7 +6,7 @@ import 'package:jakosc_powietrza/components/city_data.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-//import 'dart:developer' as developer;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MainData extends StatefulWidget {
   const MainData({
@@ -27,7 +27,16 @@ class _MainDataState extends State<MainData> {
     super.initState();
     _fetchData();
     _distanceCalculation();
-    //TODO Load selectedCities from memory if wanted
+    _getStringValuesSF();
+  }
+
+  void _getStringValuesSF() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String firstCity = prefs.getString('0') ?? '114';
+    String secondCity = prefs.getString('1') ?? '114';
+    String thirdCity = prefs.getString('2') ?? '114';
+    _onDialogSaved([firstCity, secondCity, thirdCity]);
+    if (!mounted) return;
   }
 
   void _fetchData() async {
@@ -71,7 +80,6 @@ class _MainDataState extends State<MainData> {
 
   Future<Position> _determinePosition() async {
     LocationPermission permission;
-
     permission = await Geolocator.checkPermission();
 
     if (permission == LocationPermission.denied) {

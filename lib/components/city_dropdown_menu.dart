@@ -3,9 +3,13 @@ import 'package:jakosc_powietrza/models/city_id.dart';
 
 class CityDropdownMenu extends StatefulWidget {
   const CityDropdownMenu(
-      {super.key, required this.futureCityID, required this.onCountrySelected});
+      {super.key,
+      required this.futureCityID,
+      required this.onCountrySelected,
+      required this.initialId});
   final List<CityID> futureCityID;
   final Function(String) onCountrySelected;
+  final String initialId;
 
   @override
   State<CityDropdownMenu> createState() => _CityDropdownMenuState();
@@ -17,7 +21,7 @@ class _CityDropdownMenuState extends State<CityDropdownMenu> {
   @override
   Widget build(BuildContext context) {
     return DropdownMenu<String>(
-      initialSelection: widget.futureCityID.first.id.toString(),
+      initialSelection: widget.initialId,
       onSelected: (String? value) {
         setState(() {
           currentValue = value!;
