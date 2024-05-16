@@ -1,8 +1,5 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:AirQuality/models/city_id.dart';
-import 'package:flutter/widgets.dart';
 
 class CityDropdownMenu extends StatefulWidget {
   const CityDropdownMenu(
@@ -24,7 +21,7 @@ class _CityDropdownMenuState extends State<CityDropdownMenu> {
   @override
   Widget build(BuildContext context) {
     return DropdownMenu<String>(
-      width: MediaQuery.of(context).size.width - 10,
+      width: MediaQuery.of(context).size.width - 50,
       inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(40),
@@ -36,7 +33,7 @@ class _CityDropdownMenuState extends State<CityDropdownMenu> {
       initialSelection: widget.initialId,
       menuStyle: MenuStyle(
         backgroundColor: MaterialStateProperty.resolveWith((states) {
-          return const Color.fromARGB(255, 166, 227, 233);
+          return const Color.fromARGB(255, 113, 201, 206);
         }),
       ),
       onSelected: (String? value) {
