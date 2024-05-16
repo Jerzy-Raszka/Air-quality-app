@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jakosc_powietrza/components/main_data.dart';
+import 'package:AirQuality/components/main_data.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
       title: const Text(
         'Jakość powietrza',
         style: TextStyle(
-            color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+            color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
       ),
       backgroundColor: const Color.fromARGB(255, 113, 201, 206),
       elevation: 0.0,

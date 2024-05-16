@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:jakosc_powietrza/models/city_id.dart';
-import 'package:jakosc_powietrza/components/city_dropdown_menu.dart';
+import 'package:AirQuality/models/city_id.dart';
+import 'package:AirQuality/components/city_dropdown_menu.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ChooseStationDialog extends StatefulWidget {
@@ -72,7 +72,7 @@ class _ChooseStationDialogState extends State<ChooseStationDialog> {
                   'Save',
                   style: TextStyle(
                       color: Colors.black,
-                      fontSize: 18,
+                      fontSize: 15,
                       fontWeight: FontWeight.bold),
                 ),
               ),
@@ -84,7 +84,7 @@ class _ChooseStationDialogState extends State<ChooseStationDialog> {
                   'Cancel',
                   style: TextStyle(
                       color: Colors.black,
-                      fontSize: 18,
+                      fontSize: 15,
                       fontWeight: FontWeight.bold),
                 ),
               ),

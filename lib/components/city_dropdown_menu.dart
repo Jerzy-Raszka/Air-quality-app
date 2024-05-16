@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import 'package:jakosc_powietrza/models/city_id.dart';
+import 'package:AirQuality/models/city_id.dart';
+import 'package:flutter/widgets.dart';
 
 class CityDropdownMenu extends StatefulWidget {
   const CityDropdownMenu(
@@ -45,7 +48,9 @@ class _CityDropdownMenuState extends State<CityDropdownMenu> {
       dropdownMenuEntries:
           widget.futureCityID.map<DropdownMenuEntry<String>>((CityID value) {
         return DropdownMenuEntry<String>(
-            value: value.id.toString(), label: value.stationName);
+          value: value.id.toString(),
+          label: value.stationName,
+        );
       }).toList(),
     );
   }

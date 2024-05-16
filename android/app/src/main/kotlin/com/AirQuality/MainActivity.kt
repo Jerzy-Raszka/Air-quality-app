@@ -1,4 +1,4 @@
-package com.example.jakosc_powietrza
+package com.AirQuality
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:jakosc_powietrza/components/legend.dart';
-import 'package:jakosc_powietrza/models/city_id.dart';
-import 'package:jakosc_powietrza/components/choose_station_dialog.dart';
-import 'package:jakosc_powietrza/components/choosen_city.dart';
-import 'package:jakosc_powietrza/components/city_data.dart';
+import 'package:AirQuality/components/legend.dart';
+import 'package:AirQuality/models/city_id.dart';
+import 'package:AirQuality/components/choose_station_dialog.dart';
+import 'package:AirQuality/components/choosen_city.dart';
+import 'package:AirQuality/components/city_data.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -115,7 +115,7 @@ class _MainDataState extends State<MainData> {
                 'Najbliższa stacja: ',
                 style: TextStyle(
                     color: Colors.black,
-                    fontSize: 15,
+                    fontSize: 13,
                     fontWeight: FontWeight.bold),
               ),
               LegendButton(),
@@ -125,12 +125,6 @@ class _MainDataState extends State<MainData> {
         ChoosenCity(
           cityId: '$startCityID',
           futureCityID: futureCityID,
-        ),
-        const Divider(
-          color: Color.fromARGB(255, 113, 201, 206),
-          thickness: 3,
-          indent: 15,
-          endIndent: 15,
         ),
         ...selectedCities.map((cityId) =>
             ChoosenCity(cityId: cityId, futureCityID: futureCityID)),
@@ -157,7 +151,7 @@ class _MainDataState extends State<MainData> {
           child: const Text(
             'Zmień lokalizacje',
             style: TextStyle(
-                color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+                color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
           ),
           onPressed: () => showDialog<List<String>>(
             context: context,

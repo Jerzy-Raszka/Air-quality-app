@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:jakosc_powietrza/models/city_id.dart';
+import 'package:AirQuality/models/city_id.dart';
 import 'package:http/http.dart' as http;
-import 'package:jakosc_powietrza/models/sensor.dart';
+import 'package:AirQuality/models/sensor.dart';
 
 class CityData extends StatefulWidget {
   const CityData({required this.cityId, required this.futureCityID, super.key});
@@ -79,45 +79,48 @@ class _CityDataState extends State<CityData> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Container(
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          color: Color.fromARGB(255, 113, 201, 206),
-        ),
-        width: 340,
-        child: Column(
-          children: [
-            Center(
-                child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Text(
-                widget.futureCityID
-                        .firstWhereOrNull(
-                            (element) => element.id.toString() == widget.cityId)
-                        ?.stationName ??
-                    'Nie znaleziono miejscowości',
-                style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold),
-              ),
-            )),
-            ...sensorsData.map((sensorData) => Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 50),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          sensorData.name,
-                          style: const TextStyle(fontSize: 18),
-                        ),
-                        Text(
-                          sensorData.value.toString(),
-                          style: const TextStyle(fontSize: 18),
-                        )
-                      ]),
-                ))
-          ],
+      child: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Container(
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+            color: Color.fromARGB(255, 113, 201, 206),
+          ),
+          width: MediaQuery.of(context).size.width - 80,
+          child: Column(
+            children: [
+              Center(
+                  child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Text(
+                  widget.futureCityID
+                          .firstWhereOrNull((element) =>
+                              element.id.toString() == widget.cityId)
+                          ?.stationName ??
+                      'Nie znaleziono miejscowości',
+                  style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold),
+                ),
+              )),
+              ...sensorsData.map((sensorData) => Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 50),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            sensorData.name,
+                            style: const TextStyle(fontSize: 15),
+                          ),
+                          Text(
+                            sensorData.value!.toStringAsFixed(3),
+                            style: const TextStyle(fontSize: 15),
+                          )
+                        ]),
+                  ))
+            ],
+          ),
         ),
       ),
     );

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jakosc_powietrza/pages/home.dart';
+import 'package:AirQuality/pages/home.dart';
 
 void main() {
   runApp(const MyApp());

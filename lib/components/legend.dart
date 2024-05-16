@@ -30,7 +30,7 @@ class LegendButton extends StatelessWidget {
                     'Kategoria powietrza',
                     style: TextStyle(
                         color: Colors.black,
-                        fontSize: 15,
+                        fontSize: 13,
                         fontWeight: FontWeight.bold),
                   )),
                   const SizedBox(height: 20),
@@ -56,7 +56,7 @@ class LegendButton extends StatelessWidget {
       child: const Text(
         'Legenda',
         style: TextStyle(
-            color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
+            color: Colors.black, fontSize: 13, fontWeight: FontWeight.bold),
       ),
     );
   }
